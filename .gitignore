@@ -1,0 +1,8 @@
+# Secrets and local Claude Code config
+.env
+CLAUDE.md
+.claude/settings.local.json
+
+# Local development only
+tests/
+node_modules/
