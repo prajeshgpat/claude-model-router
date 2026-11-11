@@ -31,14 +31,18 @@ if (!startupFile) {
 
 if (process.argv.includes("--uninstall")) {
   writeFileSync(startupFile, withoutAliases(readIfPresent(startupFile)));
-  process.stdout.write(`Removed the aliases from ${startupFile}. Your key in ${envFile} was left in place.\n`);
+  process.stdout.write(
+    `Removed the aliases from ${startupFile}. Your key in ${envFile} was left in place.\n` +
+      `Restart any running Claude Code session to stop routing it.\n`,
+  );
 } else {
-  writeFileSync(startupFile, withAliases(readIfPresent(startupFile), LAUNCHER));
+  writeFileSync(startupFile, withAliases(readIfPresent(startupFile), LAUNCHER, fileURLToPath(import.meta.url)));
   createEnvFile();
   process.stdout.write(
     `Added the claude alias to ${startupFile}.\n\nNext steps:\n` +
       `  1. Add your TypeSafe key to ${envFile}\n` +
       `  2. Run: source ${startupFile}\n` +
-      `  3. Run claude, then /model to see Jev Router\n`,
+      `  3. Run claude; sessions start on Jev Router\n\n` +
+      `To turn routing off later, run: uninstall-claude-router\n`,
   );
 }

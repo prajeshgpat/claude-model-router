@@ -34,8 +34,19 @@ Code runs normally with no routing and prints a warning at startup.
 Keep the cloned folder in place, because the alias points to it. If you move it, run the installer
 again from the new location.
 
-To bypass the router for one session, run `command claude`. To remove the aliases, run
-`node bin/install.mjs --uninstall`.
+To bypass the router for one session, run `command claude`.
+
+## Turning it off
+
+```sh
+uninstall-claude-router
+```
+
+This removes the aliases from your shell startup file and from the current shell, so `claude` runs
+plain Claude Code right away. Restart any Claude Code session that is already running, since it
+keeps using the proxy until it exits. Your key in `~/.claude-router/.env` is left in place, and
+`node bin/install.mjs` turns routing back on. `node bin/install.mjs --uninstall` does the same
+cleanup, and it also removes `claude` aliases that older installs added outside the marked block.
 
 ## How a tier is chosen
 
